@@ -1,0 +1,64 @@
+server:
+  port: 9518
+  servlet:
+    context-path: /go/buy/ticket
+
+nacos:
+  server:
+    addr: 192.168.2.201:8848
+
+ribbon:
+  ReadTimeout: 10000 #请求时间10秒
+  ConnectTimeout: 30000 #连接时间30秒
+
+spring:
+  application:
+    name: go-buy-a-ticket
+  datasource:
+    url: jdbc:mysql://localhost:3306/ems?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: bdqn
+    druid:
+      stat-view-servlet:
+        login-password: ENC(r+ziEcqXxzg1oJ29qmhzWbn9n1krjyUsk7wdARQsh5Esff6+Sa68r/V2x+EgDk2L)
+  jackson:
+    default-property-inclusion: non_null
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:sql/dev
+
+
+  data:
+    mongodb:
+      database: auth
+      port: 27017
+      host: 192.168.0.108
+    jpa:
+      repositories:
+        enabled: false
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: cn.ws.rdp.service.lifecycle.mgm.server.entity
+  global-config:
+    db-config:
+      #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: input
+      #字段策略 IGNORED:"忽略判断"  NOT_NULL:"非 NULL 判断")  NOT_EMPTY:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库类型
+      db-type: mysql
+    #Mapper 对应的 XML 文件会自动刷新，更改 XML 文件后，无需再次重启工程,生产环境无需打开
+    refresh: false
+  configuration:
+    #是否开启自动驼峰命名规则映射:从数据库列名到Java属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    #开启缓存
+    cache-enabled: false
+    #如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段
+    call-setters-on-nulls: true
+    #这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
