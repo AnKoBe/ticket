@@ -1,46 +1,12 @@
 server:
-  port: 9518
+  port: 1118
   servlet:
     context-path: /go/buy/ticket
 
-nacos:
-  server:
-    addr: 192.168.2.201:8848
-
-ribbon:
-  ReadTimeout: 10000 #请求时间10秒
-  ConnectTimeout: 30000 #连接时间30秒
-
-spring:
-  application:
-    name: go-buy-a-ticket
-  datasource:
-    url: jdbc:mysql://localhost:3306/ems?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: bdqn
-    druid:
-      stat-view-servlet:
-        login-password: ENC(r+ziEcqXxzg1oJ29qmhzWbn9n1krjyUsk7wdARQsh5Esff6+Sa68r/V2x+EgDk2L)
-  jackson:
-    default-property-inclusion: non_null
-  flyway:
-    enabled: true
-    baseline-on-migrate: true
-    locations: classpath:sql/dev
-
-
-  data:
-    mongodb:
-      database: auth
-      port: 27017
-      host: 192.168.0.108
-    jpa:
-      repositories:
-        enabled: false
 mybatis-plus:
   # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
   mapper-locations: classpath*:mapper/*Mapper.xml
-  type-aliases-package: cn.ws.rdp.service.lifecycle.mgm.server.entity
+  type-aliases-package: cn.go.buy.ticket.entity
   global-config:
     db-config:
       #主键类型 AUTO:"数据库ID自增" INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
